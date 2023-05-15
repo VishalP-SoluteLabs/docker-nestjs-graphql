@@ -1,0 +1,26 @@
+version: "3.8"
+services:
+     api:
+      # image: vishal/nestjs-dockerized
+      build: 
+        dockerfile: Dockerfile
+        context: .    #path of the docker file we need to build
+      depends_on:
+          - postgres
+      environment:
+           DB_HOST: localhost
+           DB_PORT: 5432
+           POSTGRES_USER: postgres
+           POSTGRES_PASSWORD: 123456
+           POSTGRES_DB: book_db 
+      ports:
+         - "3000:3000"
+
+     postgres: 
+       image: postgres:10.4
+       ports:
+          - "35000:5432"
+       environment:
+           POSTGRES_USER: postgres
+           POSTGRES_PASSWORD: 123456
+           POSTGRES_DB: book_db 
